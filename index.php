@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>Sean Kraft's CSCI E-15 Web Page</title>
 <link type="text/css" rel="stylesheet" href="basic-minimal.css">
+<script src="jquery-1.10.2.js"> </script>
 
 
 </head>
@@ -27,7 +28,7 @@
 
     <h2>Javascript Timer</h2>
     <section>
-        <input type='hidden' id='txtMinAllowed' name='txtMinAllowed' value='30'/>
+        <input type='hidden' id='txtMinAllowed' name='txtMinAllowed' value='1000'/>
         <input type='hidden' id='txtMinElapsed' name='txtMinElapsed' value='0'/>
         <input type='hidden' id='txtSecondsElapsed' name='txtSecondsElapsed' value='0'/>
         <table>
@@ -39,6 +40,7 @@
                 </td>
             </tr>
         </table>
+        <canvas id="TimerDisplay" width="100" height="65"></canvas>
     </section>
 
     <footer>
@@ -53,10 +55,6 @@
 
     //initialize the timer
     var bInitialized = false;
-    function StartClock() {
-        DisplayTimer();
-        alert('here 2');
-    }
 
     //Called every second to incriment the timer
     function DisplayTimer() {
@@ -81,6 +79,32 @@
         //update the display
         document.all["divTimeState"].innerHTML = Mins + ":" + Secs;
 
+        //var c = $( '#TimerDisplay' );
+        //alert(c);
+        var c=document.getElementById("TimerDisplay");
+        var fontSize = c.height * .3;
+
+        var fontY = fontSize * 1.15;
+        var xPos = c.width * .1;
+        var totalBarWidth = xPos * 8;
+        var spacingWidth = c.height / 20;
+        var ctx=c.getContext("2d");
+        ctx.font=fontSize + "px Arial";
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(0,0, c.width, c.height);
+        ctx.fillStyle="black";
+        ctx.fillText("00:" + Mins + "0:" + Secs, xPos, fontY);
+        ctx.fillStyle="green";
+        //Fill the status bar
+        var totalSecondsElapsed = (Mins * 60) + Secs;
+        var totalSecondsAllowed = Allowed * 60;
+        var percentComplete = totalSecondsElapsed / totalSecondsAllowed;
+        ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
+        ctx.fillStyle="Yellow";
+        ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * percentComplete, spacingWidth * 4);
+
+
+
         //If we are up to the time we are allowed, it's time to finish
         if (Mins == Allowed) {
             alert("Your time is up, click OK to complete the test.")
@@ -92,7 +116,9 @@
 
     }
 
-    alert('here');
-    StartClock();
+    $( document ).ready(function() {
+        DisplayTimer();
+    });
+
 </script>
 </html>
