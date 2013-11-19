@@ -28,7 +28,7 @@
 
     <h2>Javascript Timer</h2>
     <section>
-        <input type='hidden' id='txtMinAllowed' name='txtMinAllowed' value='1000'/>
+        <input type='hidden' id='txtMinAllowed' name='txtMinAllowed' value='1'/>
         <input type='hidden' id='txtMinElapsed' name='txtMinElapsed' value='0'/>
         <input type='hidden' id='txtSecondsElapsed' name='txtSecondsElapsed' value='0'/>
         <table>
@@ -40,7 +40,7 @@
                 </td>
             </tr>
         </table>
-        <canvas id="TimerDisplay" width="100" height="65"></canvas>
+        <canvas id="TimerDisplay" width="400" height="200"></canvas>
     </section>
 
     <footer>
@@ -81,34 +81,48 @@
 
         //var c = $( '#TimerDisplay' );
         //alert(c);
-        var c=document.getElementById("TimerDisplay");
-        var fontSize = c.height * .3;
+        var canvas=document.getElementById("TimerDisplay");
+        var ctx=canvas.getContext("2d");
+        var fontSize = canvas.height * .3;
 
-        var fontY = fontSize * 1.15;
-        var xPos = c.width * .1;
-        var totalBarWidth = xPos * 8;
-        var spacingWidth = c.height / 20;
-        var ctx=c.getContext("2d");
-        ctx.font=fontSize + "px Arial";
-        ctx.fillStyle="#FF0000";
-        ctx.fillRect(0,0, c.width, c.height);
-        ctx.fillStyle="black";
-        ctx.fillText("00:" + Mins + "0:" + Secs, xPos, fontY);
-        ctx.fillStyle="green";
+        //calculate the width of the font with respect to the width of the panel
+        var ClockText = "00:" + Mins + "0:" + Secs;
+        fontSize = 75;
+        do {
+            ctx.font = fontSize + 'px Arial';
+            var TextWidth = ctx.measureText(ClockText);
+            fontSize--;
+        } while ((TextWidth.width + (canvas.width *.2)) > canvas.width)//the width with a 10% margin on each side
+
+        document.all["divTimeState"].innerHTML = "Font:" + fontSize;
+
+        var fontY = canvas.height * .5;//half the height
+        var xPos = canvas.width * .1;//start at %10 of the width
+        var totalBarWidth = TextWidth.width;
+        var spacingWidth = canvas.height / 20;
+
+        ctx.fillStyle="#FF0000";//timer's background color
+        ctx.fillRect(0,0, canvas.width, canvas.height);
+
+        ctx.fillStyle="black"; //font color
+        ctx.fillText(ClockText, xPos, fontY);
+
         //Fill the status bar
+        ctx.fillStyle="green"; //time left bar color
         var totalSecondsElapsed = (Mins * 60) + Secs;
         var totalSecondsAllowed = Allowed * 60;
         var percentComplete = totalSecondsElapsed / totalSecondsAllowed;
         ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
-        ctx.fillStyle="Yellow";
+        ctx.fillStyle="Yellow"; //time taken color
         ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * percentComplete, spacingWidth * 4);
 
-
+        //alert(TextWidth);
 
         //If we are up to the time we are allowed, it's time to finish
         if (Mins == Allowed) {
-            alert("Your time is up, click OK to complete the test.")
+            //alert("Your time is up, click OK to complete the test.")
             <!--<%#GetTimeoutJavascript()%>-->
+            //Tie in an event handler here
         }
 
         //set the timeout again
