@@ -13,7 +13,11 @@
 <meta charset="UTF-8">
 <title>Sean Kraft's CSCI E-15 Web Page</title>
 <link type="text/css" rel="stylesheet" href="basic-minimal.css">
-<script src="jquery-1.10.2.js"> </script>
+<script src="js/jquery-1.10.2.js"> </script>
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.ui.timer.js"></script>
 
 
 </head>
@@ -40,7 +44,9 @@
                 </td>
             </tr>
         </table>
-        <canvas id="TimerDisplay" width="400" height="200"></canvas>
+        <canvas id="TimerDisplay" width="150" height="200"></canvas>
+
+        <img id="iceland_dog" src="iceland_dog.jpg" alt="This is some dog"/>
     </section>
 
     <footer>
@@ -53,6 +59,7 @@
 </body>
 <script language="javascript">
 
+    window.console.log('test');
     //initialize the timer
     var bInitialized = false;
 
@@ -125,13 +132,17 @@
             //Tie in an event handler here
         }
 
-        //set the timeout again
+        //set the timeout for one second
         setTimeout("DisplayTimer()",1000);
 
     }
 
     $( document ).ready(function() {
         DisplayTimer();
+        $("#TimerDisplay").timer({ added: function(e, ui){}
+            , minutesAllowed:.5
+            ,timeup: function(e,ui){alert('timeup');}});
+        //$("#iceland_dog").timer({ added: function(e, ui){ });
     });
 
 </script>
