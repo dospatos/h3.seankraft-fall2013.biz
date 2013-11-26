@@ -19,7 +19,13 @@
                     mins = 0, secs = 0,
                     localId = el[0].id;
 
-                window.console.log(localId);
+                //thanks to eyelidlessness on stackOF for this alert override technique
+                window.nativeAlert = window.alert;
+                window.alert = function(alertText) {
+                    window.console.log(alertText);
+                }
+                alert('here');
+
                 var ctx=el[0].getContext("2d");
                 //alert(ctx);
 
@@ -35,14 +41,53 @@
             tick: function () {
                 //set the timeout for one second
                 var totalSecondsAllowed = this.options.minutesAllowed * 60;
-                var percentComplete = this.options.secondsEt / totalSecondsAllowed;
+                var ET = this.options.secondsEt;
+                var Mins = ET/60;
+                if (Mins < 1){Mins=0;}
+                var Secs = ET - (Mins*60);
+                window.console.log("mins: " + Mins + ", Secs:" + Secs);
+                var percentComplete = ET / totalSecondsAllowed;
 
                 if (percentComplete >= 1) {
                     this._trigger("timeup", null, "");
                 } else {
                     window.console.log("tick: " + percentComplete);
-                    this.options.secondsEt++;
                     localId = this.element[0].id;
+
+                    //********
+                    var canvas=this.element[0];
+                    var ctx=canvas.getContext("2d");
+                    var fontSize = canvas.height * .3;
+
+                    //calculate the width of the font with respect to the width of the panel
+                    var ClockText = "00:" + Mins + "0:" + Secs;
+                    fontSize = 75;
+                    do {
+                        ctx.font = fontSize + 'px Arial';
+                        var TextWidth = ctx.measureText(ClockText);
+                        fontSize--;
+                    } while ((TextWidth.width + (canvas.width *.2)) > canvas.width)//the width with a 10% margin on each side
+
+
+                    var fontY = canvas.height * .5;//half the height
+                    var xPos = canvas.width * .1;//start at %10 of the width
+                    var totalBarWidth = TextWidth.width;
+                    var spacingWidth = canvas.height / 20;
+
+                    ctx.fillStyle="#FF0000";//timer's background color
+                    ctx.fillRect(0,0, canvas.width, canvas.height);
+
+                    ctx.fillStyle="black"; //font color
+                    ctx.fillText(ClockText, xPos, fontY);
+
+                    //Fill the status bar
+                    ctx.fillStyle="green"; //time left bar color
+                    ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
+                    ctx.fillStyle="Yellow"; //time taken color
+                    ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * percentComplete, spacingWidth * 4);
+
+                    //*****
+                    this.options.secondsEt++;
                     setTimeout("$('#" + localId + "').timer('tick','')",1000);
                 }
             },

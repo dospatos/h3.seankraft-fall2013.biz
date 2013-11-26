@@ -45,6 +45,8 @@
             </tr>
         </table>
         <canvas id="TimerDisplay" width="150" height="200"></canvas>
+        <canvas id="TimerDisplay2" width="150" height="200"></canvas>
+        <canvas id="TimerDisplay3" width="150" height="200"></canvas>
 
         <img id="iceland_dog" src="iceland_dog.jpg" alt="This is some dog"/>
     </section>
@@ -139,9 +141,13 @@
 
     $( document ).ready(function() {
         DisplayTimer();
-        $("#TimerDisplay").timer({ added: function(e, ui){}
+        $("#TimerDisplay2").timer({ added: function(e, ui){}
             , minutesAllowed:.5
             ,timeup: function(e,ui){alert('timeup');}});
+
+        $("#TimerDisplay3").timer({ added: function(e, ui){}
+            , minutesAllowed:1
+            ,timeup: function(e,ui){alert('timeup 3');}});
         //$("#iceland_dog").timer({ added: function(e, ui){ });
     });
 
