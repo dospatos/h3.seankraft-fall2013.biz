@@ -2,12 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="201f0877-76b9-43a0-803b-805b9490dbd7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/_v_email.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/_v_template.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/c_base.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/c_index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/config.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/diagnostics.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fastcgi.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/feature_flags.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/timer_test.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/v_index_index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="h3.seankraft-fall2013.biz.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/index.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385495180663" ignored="false" />
-    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385498580252" ignored="false" />
+    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385498611750" ignored="false" />
     <file path="/jquery.ui.timer.js" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385495063814" ignored="false" />
     <file path="/ui.timer.css" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385126694843" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -143,6 +154,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="h3.seankraft-fall2013.biz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="h3.seankraft-fall2013.biz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="h3.seankraft-fall2013.biz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="h3.seankraft-fall2013.biz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -239,7 +278,11 @@
       <created>1385498587099</created>
       <updated>1385498587099</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added framework">
+      <created>1385498613754</created>
+      <updated>1385498613754</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
