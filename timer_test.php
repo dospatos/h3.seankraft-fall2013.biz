@@ -33,8 +33,8 @@
     <h2>Javascript Timer</h2>
     <p>Behold the jQuery Timer plugin. Turns an HTML canvas into a handsome countdown clock!</p>
     <section>
-        <canvas id="TimerDisplay2" width="150" height="200"></canvas>
-        <canvas id="TimerDisplay3" width="150" height="200"></canvas>
+        <canvas id="TimerDisplay2" width="100" height="300"></canvas>
+        <canvas id="TimerDisplay3" width="150" height="100"></canvas>
         <div id="TimerDisplay4" style="width:150px;height:200px;background-color:red;color: black;font-family: Arial;font-size: 20px;"/>
 
     </section>
@@ -51,7 +51,8 @@
 
     $( document ).ready(function() {
         $("#TimerDisplay2").timer({ added: function(e, ui){}
-            , minutesAllowed:30
+            , minutesAllowed:2
+            , timeTakenColor: 'yellow'
             ,timeup: function(e,ui){alert('timeup');}});
 
         $("#TimerDisplay3").timer({ added: function(e, ui){}

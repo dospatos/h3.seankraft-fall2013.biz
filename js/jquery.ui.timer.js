@@ -85,16 +85,16 @@
                     var totalBarWidth = TextWidth.width;
                     var spacingWidth = canvas.height / 20;
 
-                    ctx.fillStyle="#FF0000";//timer's background color
+                    ctx.fillStyle=this.options.backgroundColor;//timer's background color
                     ctx.fillRect(0,0, canvas.width, canvas.height);
 
-                    ctx.fillStyle="black"; //font color
+                    ctx.fillStyle=this.options.textColor; //font color
                     ctx.fillText(ClockText, xPos, fontY);
 
                     //Fill the status bar
-                    ctx.fillStyle="green"; //time left bar color
+                    ctx.fillStyle=this.options.timeLeftColor; //time left bar color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
-                    ctx.fillStyle="Yellow"; //time taken color
+                    ctx.fillStyle=this.options.timeTakenColor; //time taken color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * this.options.percentComplete, spacingWidth * 4);
                 }
             },
