@@ -9,7 +9,8 @@
                 timeTakenColor: "#FF0000",
                 secondsEt: 0,
                 minutesAllowed: 30,
-                serverTimerId: null
+                serverTimerId: null,
+                percentComplete: 0
 
             },
             _create: function() {
@@ -24,43 +25,53 @@
                 window.alert = function(alertText) {
                     window.console.log(alertText);
                 }
-                alert('here');
-
-                var ctx=el[0].getContext("2d");
-                //alert(ctx);
-
 
                 $(window).resize(function(){
                     console.log("resize");
                         });
                 self._trigger("added", null, "");
-               // window.setInterval(function() {this.tick();}, 1000)
-                this.tick();//start the timer
+
+                //Get this thing ticking
+                this.tick();
 
             },
             tick: function () {
-                //set the timeout for one second
-                var totalSecondsAllowed = this.options.minutesAllowed * 60;
-                var ET = this.options.secondsEt;
-                var Mins = ET/60;
-                if (Mins < 1){Mins=0;}
-                var Secs = ET - (Mins*60);
-                window.console.log("mins: " + Mins + ", Secs:" + Secs);
-                var percentComplete = ET / totalSecondsAllowed;
 
-                if (percentComplete >= 1) {
+                var totalSecondsAllowed = this.options.minutesAllowed * 60;
+
+                //calculate all the times from the elapsed time in seconds
+                this.options.secs = this.options.secondsEt % 60;
+                this.options.mins = Math.floor(this.options.secondsEt/60);
+                this.options.hours = Math.floor(this.options.mins/60);
+
+                window.console.log("hours" + this.options.hours + ", mins: " + this.options.mins + ", Secs:" + this.options.secs);
+
+                alert(this.isDiv());
+                alert(this.isCanvasSupported());
+                if (this.options.percentComplete >= 1) {
                     this._trigger("timeup", null, "");
                 } else {
-                    window.console.log("tick: " + percentComplete);
-                    localId = this.element[0].id;
+                    //figure out what % complete we are
+                    this.options.percentComplete = this.options.secondsEt / totalSecondsAllowed;
 
-                    //********
+                    this.displayTimer();
+                    localId = this.element[0].id;
+                    this.options.secondsEt++;//count off a second
+                    setTimeout("$('#" + localId + "').timer('tick','')",1000);
+                }
+
+            },
+            displayTimer: function(){
+                var ClockText = this.formatTimePart(this.options.hours) + ":" + this.formatTimePart(this.options.mins) + ":" + this.formatTimePart(this.options.secs);
+                if (this.isDiv()) {
+                    alert('paint the div');
+                    this.element.html(ClockText);
+                } else {
                     var canvas=this.element[0];
                     var ctx=canvas.getContext("2d");
                     var fontSize = canvas.height * .3;
 
                     //calculate the width of the font with respect to the width of the panel
-                    var ClockText = "00:" + Mins + "0:" + Secs;
                     fontSize = 75;
                     do {
                         ctx.font = fontSize + 'px Arial';
@@ -84,12 +95,15 @@
                     ctx.fillStyle="green"; //time left bar color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
                     ctx.fillStyle="Yellow"; //time taken color
-                    ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * percentComplete, spacingWidth * 4);
-
-                    //*****
-                    this.options.secondsEt++;
-                    setTimeout("$('#" + localId + "').timer('tick','')",1000);
+                    ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * this.options.percentComplete, spacingWidth * 4);
                 }
+            },
+            isCanvasSupported: function(){
+                return !!window.CanvasRenderingContext2D;
+            },
+            isDiv: function(){return this.element.is("div");},
+            formatTimePart: function(timePart) {
+                    return timePart > 9 ? "" + timePart: "0" + timePart;
             },
             destroy: function() {
                 this.element.next().remove();
