@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="201f0877-76b9-43a0-803b-805b9490dbd7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/jquery.ui.timer.js" afterPath="$PROJECT_DIR$/js/jquery.ui.timer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/timer_test.php" afterPath="$PROJECT_DIR$/timer_test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="h3.seankraft-fall2013.biz.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/index.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385495180663" ignored="false" />
-    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385498789562" ignored="false" />
+    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385501652054" ignored="false" />
     <file path="/jquery.ui.timer.js" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385501464745" ignored="false" />
     <file path="/ui.timer.css" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385126694843" ignored="false" />
     <file path="/timer_test.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385501552645" ignored="false" />
@@ -41,19 +39,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timer_test.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="timer_test.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timer_test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.64827585">
+            <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="-31.384615">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jquery.ui.timer.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="jquery.ui.timer.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.0">
+            <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.22972973">
               <folding>
                 <element signature="e#1220#2364#0" expanded="false" />
               </folding>
@@ -290,7 +288,11 @@
       <created>1385498795680</created>
       <updated>1385498795680</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="some color changes">
+      <created>1385501655409</created>
+      <updated>1385501655409</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -302,10 +304,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32395834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32395834" sideWeight="0.670282" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329718" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -359,7 +361,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added framework" />
+    <option name="LAST_COMMIT_MESSAGE" value="some color changes" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -377,6 +379,7 @@
     <MESSAGE value="javascript changes" />
     <MESSAGE value="Timer working" />
     <MESSAGE value="Added framework" />
+    <MESSAGE value="some color changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -472,19 +475,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
+    <entry file="file://$PROJECT_DIR$/timer_test.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1220#2364#0" expanded="false" />
-          </folding>
+        <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="-31.384615">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timer_test.php">
+    <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.64827585">
-          <folding />
+        <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.22972973">
+          <folding>
+            <element signature="e#1220#2364#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
