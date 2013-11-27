@@ -2,17 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="201f0877-76b9-43a0-803b-805b9490dbd7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/jquery.ui.timer.js" afterPath="$PROJECT_DIR$/js/jquery.ui.timer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/timer_test.php" afterPath="$PROJECT_DIR$/timer_test.php" />
+      <change type="DELETED" beforePath="C:\wamp\www\h3.seankraft-fall2013.biz\h3.seankraft-fall2013.biz\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\h3.seankraft-fall2013.biz\h3.seankraft-fall2013.biz\.idea\h3.seankraft-fall2013.biz.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\h3.seankraft-fall2013.biz\h3.seankraft-fall2013.biz\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\h3.seankraft-fall2013.biz\h3.seankraft-fall2013.biz\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\h3.seankraft-fall2013.biz\h3.seankraft-fall2013.biz\.idea\vcs.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/c_index.php" afterPath="$PROJECT_DIR$/controllers/c_index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="h3.seankraft-fall2013.biz.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/index.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385495180663" ignored="false" />
-    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385498789562" ignored="false" />
-    <file path="/jquery.ui.timer.js" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385501464745" ignored="false" />
+    <file path="/Dummy.txt" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385504360131" ignored="false" />
+    <file path="/jquery.ui.timer.js" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385495063814" ignored="false" />
     <file path="/ui.timer.css" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385126694843" ignored="false" />
-    <file path="/timer_test.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385501552645" ignored="false" />
+    <file path="/c_index.php" changelist="201f0877-76b9-43a0-803b-805b9490dbd7" time="1385504533976" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,16 +39,27 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="2" selection-start="1039" selection-end="1039" vertical-scroll-proportion="-22.884615">
+            <state line="17" column="42" selection-start="569" selection-end="569" vertical-scroll-proportion="-5.769231">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timer_test.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/timer_test.php">
+      <file leaf-file-name="jquery-1.10.2.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/jquery-1.10.2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.64827585">
+            <state line="7778" column="3" selection-start="217994" selection-end="217994" vertical-scroll-proportion="-7.76">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="c_index.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/c_index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="52" selection-start="734" selection-end="734" vertical-scroll-proportion="0.74452555">
               <folding />
             </state>
           </provider>
@@ -53,10 +68,8 @@
       <file leaf-file-name="jquery.ui.timer.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#1220#2364#0" expanded="false" />
-              </folding>
+            <state line="64" column="165" selection-start="2569" selection-end="2569" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,7 +77,7 @@
       <file leaf-file-name="ui.timer.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/ui.timer.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+            <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -90,19 +103,19 @@
       <list>
         <option value="$PROJECT_DIR$/jquery.ui.timer.js" />
         <option value="$PROJECT_DIR$/js/tmp" />
-        <option value="$PROJECT_DIR$/css/ui.timer.css" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/js/jquery.ui.timer.js" />
-        <option value="$PROJECT_DIR$/timer_test.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/controllers/c_index.php" />
+        <option value="$PROJECT_DIR$/css/ui.timer.css" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="2" />
+    <option name="y" value="2" />
+    <option name="width" value="1278" />
+    <option name="height" value="678" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -130,6 +143,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -220,12 +234,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../h2.seankraft-fall2013.biz/h2.seankraft-fall2013.biz" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
@@ -286,32 +299,28 @@
       <created>1385498613754</created>
       <updated>1385498613754</updated>
     </task>
-    <task id="LOCAL-00007" summary="Added framework">
-      <created>1385498795680</created>
-      <updated>1385498795680</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="2" y="2" width="1278" height="678" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32395834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35773027" sideWeight="0.91714835" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08285164" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -382,19 +391,10 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="0" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1220#2364#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -458,32 +458,39 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/ui.timer.css">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+        <state line="17" column="42" selection-start="569" selection-end="569" vertical-scroll-proportion="-5.769231">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.10.2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="2" selection-start="1039" selection-end="1039" vertical-scroll-proportion="-22.884615">
+        <state line="7778" column="3" selection-start="217994" selection-end="217994" vertical-scroll-proportion="-7.76">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/ui.timer.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.ui.timer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="30" selection-start="269" selection-end="283" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1220#2364#0" expanded="false" />
-          </folding>
+        <state line="64" column="165" selection-start="2569" selection-end="2569" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timer_test.php">
+    <entry file="file://$PROJECT_DIR$/controllers/c_index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="38" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.64827585">
+        <state line="18" column="52" selection-start="734" selection-end="734" vertical-scroll-proportion="0.74452555">
           <folding />
         </state>
       </provider>
