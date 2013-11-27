@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Sean Kraft's CSCI E-15 Web Page</title>
-<link type="text/css" rel="stylesheet" href="basic-minimal.css">
+<link type="text/css" rel="stylesheet" href="css/basic-minimal.css">
 <script src="js/jquery-1.10.2.js"> </script>
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery.ui.core.js"></script>
@@ -50,18 +50,19 @@
 <script language="javascript">
 
     $( document ).ready(function() {
+
         $("#TimerDisplay2").timer({ added: function(e, ui){}
-            , minutesAllowed:2
+            , minutesAllowed:1.2
             , timeTakenColor: 'yellow'
-            ,timeup: function(e,ui){alert('timeup');}});
+            ,timeup: function(e,ui){alert('timeup - serverTimerId:' + ui.serverTimerId);}});
 
         $("#TimerDisplay3").timer({ added: function(e, ui){}
-            , minutesAllowed:1
-            ,timeup: function(e,ui){alert('timeup 3');}});
+            , minutesAllowed:1, synchWithServer:false
+            ,timeup: function(e,ui){alert('timeup 3 serverTimerId:' + ui.serverTimerId);}});
 
         $("#TimerDisplay4").timer({ added: function(e, ui){}
-            , minutesAllowed:.5
-            ,timeup: function(e,ui){alert('timeup 4');}});
+            , minutesAllowed:.2
+            ,timeup: function(e,ui){alert('timeup 4 serverTimerId: ' + ui.serverTimerId);}});
         //$("#iceland_dog").timer({ added: function(e, ui){ });
     });
 

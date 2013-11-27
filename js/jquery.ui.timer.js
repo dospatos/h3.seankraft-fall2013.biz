@@ -9,7 +9,9 @@
                 timeTakenColor: "#FF0000",
                 secondsEt: 0,
                 minutesAllowed: 30,
+                synchWithServer: true,
                 serverTimerId: null,
+                ajaxUrlRoot: "index/",
                 percentComplete: 0
 
             },
@@ -29,34 +31,71 @@
                 $(window).resize(function(){
                     console.log("resize");
                         });
-                self._trigger("added", null, "");
+
+                //setup the server timer if required
+                $serverTimerID = null;
+                if (o.synchWithServer) {
+                    $.ajax({
+                        type: "GET",
+                        url: o.ajaxUrlRoot + "increment/",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                        success : function(data) {
+                            $serverTimerID = data;
+                        }
+                    });
+                    o.serverTimerId = $serverTimerID;
+                }
 
                 //Get this thing ticking
                 this.tick();
 
             },
             tick: function () {
-
                 var totalSecondsAllowed = this.options.minutesAllowed * 60;
 
-                //calculate all the times from the elapsed time in seconds
+                //calculate all the times from the elapsed time
                 this.options.secs = this.options.secondsEt % 60;
                 this.options.mins = Math.floor(this.options.secondsEt/60);
                 this.options.hours = Math.floor(this.options.mins/60);
 
-                window.console.log("hours" + this.options.hours + ", mins: " + this.options.mins + ", Secs:" + this.options.secs);
+                //window.console.log("hours" + this.options.hours + ", mins: " + this.options.mins + ", Secs:" + this.options.secs);
 
-                alert(this.isDiv());
-                alert(this.isCanvasSupported());
                 if (this.options.percentComplete >= 1) {
-                    this._trigger("timeup", null, "");
+                    this._trigger("timeup", null, {serverTimerId: this.options.serverTimerId});
+                    if (this.options.synchWithServer) {
+                        //stop the counter on the server
+                        $.ajax({
+                            type: "GET",
+                            url: this.options.ajaxUrlRoot + "stop/" + this.options.serverTimerId,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: true
+                        });
+                    }
                 } else {
                     //figure out what % complete we are
                     this.options.percentComplete = this.options.secondsEt / totalSecondsAllowed;
 
+                    //count off a second here and on the server if required
+                    this.options.secondsEt++;
+                    if (this.options.synchWithServer) {
+                        $ajaxUrl = this.options.ajaxUrlRoot + "increment/" + this.options.serverTimerId
+                        $.ajax({
+                            type: "GET",
+                            url: $ajaxUrl,
+                            async: true,//note: we're using async and we don't care about the return (better for speed)
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    //present the timer to the user
                     this.displayTimer();
+
+                    //keep the ticker going
                     localId = this.element[0].id;
-                    this.options.secondsEt++;//count off a second
                     setTimeout("$('#" + localId + "').timer('tick','')",1000);
                 }
 
@@ -64,7 +103,6 @@
             displayTimer: function(){
                 var ClockText = this.formatTimePart(this.options.hours) + ":" + this.formatTimePart(this.options.mins) + ":" + this.formatTimePart(this.options.secs);
                 if (this.isDiv()) {
-                    alert('paint the div');
                     this.element.html(ClockText);
                 } else {
                     var canvas=this.element[0];
