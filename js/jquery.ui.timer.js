@@ -1,8 +1,6 @@
 (function($) {
     $.widget("ui.timer",{
             options: {
-                height: "100px",
-                width: "200px",
                 textColor: "#000000",
                 backgroundColor: "#FFFFFF",
                 timeLeftColor: "#007F0E",
@@ -33,11 +31,11 @@
                         });
 
                 //setup the server timer if required
-                $serverTimerID = null;
                 if (o.synchWithServer) {
+                    $serverTimerID = null;
                     $.ajax({
                         type: "GET",
-                        url: o.ajaxUrlRoot + "increment/",
+                        url: o.ajaxUrlRoot + "increment/",//Calling increment with a blank returns a new timerId for us
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         async: false,
@@ -45,14 +43,17 @@
                             $serverTimerID = data;
                         }
                     });
-                    o.serverTimerId = $serverTimerID;
+                    o.serverTimerId = $serverTimerID;//Keep the timerId for the client
                 }
+
+                //Let the client know we've got a timer going (or not in the case the timerId is null)
+                self._trigger("initServerTimer", null, {serverTimerId: o.serverTimerId});
 
                 //Get this thing ticking
                 this.tick();
 
             },
-            tick: function () {
+            tick: function () {//this gets fired every second
                 var totalSecondsAllowed = this.options.minutesAllowed * 60;
 
                 //calculate all the times from the elapsed time
@@ -100,7 +101,7 @@
                 }
 
             },
-            displayTimer: function(){
+            displayTimer: function(){//displays on a div or a panel
                 var ClockText = this.formatTimePart(this.options.hours) + ":" + this.formatTimePart(this.options.mins) + ":" + this.formatTimePart(this.options.secs);
                 if (this.isDiv()) {
                     this.element.html(ClockText);
@@ -136,7 +137,22 @@
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * this.options.percentComplete, spacingWidth * 4);
                 }
             },
-            isCanvasSupported: function(){
+            serialize: function() {//get a jSon representation of the object to post back to the server
+                return '{'
+                    +'"textColor" : ' + this.options.textColor + ','
+                    +'"backgroundColor" : ' + this.options.backgroundColor + ','
+                    +'"timeLeftColor" : ' + this.options.timeLeftColor + ','
+                    +'"timeTakenColor" : ' + this.options.timeTakenColor + ','
+                    +'"secondsEt" : ' + this.options.secondsEt + ','
+                    +'"minutesAllowed" : ' + this.options.minutesAllowed + ','
+                    +'"synchWithServer" : ' + this.options.synchWithServer + ','
+                    +'"serverTimerId" : ' + this.options.serverTimerId + ','
+                    +'"ajaxUrlRoot" : ' + this.options.ajaxUrlRoot + ','
+                    +'"percentComplete" : ' + this.options.percentComplete + ','
+                    +'}';
+
+            },
+            isCanvasSupported: function(){//returns true if the browser supports an HTML5 canvas
                 return !!window.CanvasRenderingContext2D;
             },
             isDiv: function(){return this.element.is("div");},
@@ -164,72 +180,23 @@
                         el.next().css("backgroundColor", value);
                         break;
                 }
+            },
+            _setOptions: function( options ) {
+                var that = this,
+                    resize = false;
+
+                $.each( options, function( key, value ) {
+                    that._setOption( key, value );
+                    if ( key === "height" || key === "width" ) {
+                        resize = true;
+                    }
+                });
+
+                if ( resize ) {
+                    this.resize();
+                }
             }
         }
 
     );
 })(jQuery);
-
-/*
- options: {
- location: "bottom",
- color: "#fff",
- backgroundColor: "#000"
- }
- , _create:function() {
-
- var self = this,
- o = self.options,
- el = self.element,
- cap = $("<span></span>").text(el.attr("alt")).addClass("ui-widget ui-caption").css({
- backgroundColor: o.backgroundColor,
- color: o.color,
- width: el.width()
- }).insertAfter(el),
- capWidth = el.width() - parseInt(cap.css("paddingLeft")) - parseInt(cap.css("paddingRight")),
- capHeight = cap.outerHeight() - parseInt(cap.css("paddingTop")) + parseInt(cap.css("paddingBottom"));
-
- cap.css({
- width: capWidth,
- top: (o.location === "top") ? el.offset().top : el.offset().top + el.height() - capHeight,
- left: el.offset().left,
- display: "block"
- });
-
- $(window).resize(function(){
- cap.css({
- top: (o.location === "top") ? el.offset().top : el.offset().top + el.height() - capHeight,
- left: el.offset().left
- });
- self._trigger("added", null, cap);
-
- });
- }, destroy: function() {
- this.element.next().remove();
- $(window).unbind("resize");
- },_setOption: function(option, val) {
- $.Widget.prototype._setOption.apply(this, arguments);
-
- var el = this.element,
- cap = el.next(),
- capHeight = cap.outerHeight() - parseInt(cap.css("paddingTop")) + parseInt(cap.css("paddingBottom"));
- switch (option) {
- case "location":
- (value === "top") ? cap.css("top", el.offset().top) : cap.css("top", el.offset().top + el.height() - capHeight);
- break;
- case "color":
- el.next().css("color", value);
- break;
- case "backgroundColor":
- el.next().css("backgroundColor", value);
- break;
- }
- },
-
-
-
-
-
-
-
- */

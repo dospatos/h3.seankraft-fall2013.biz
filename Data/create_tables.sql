@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
   created int(11) DEFAULT NULL,
   modified int(11) DEFAULT NULL,
   token varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  password varchar(255) DEFAULT NULL,
   last_login int(11) DEFAULT NULL,
   time_zone varchar(255) DEFAULT NULL,
   first_name varchar(255) DEFAULT NULL,
@@ -24,4 +24,4 @@ CREATE TABLE IF NOT EXISTS users (
   location varchar(255) DEFAULT NULL,
   avatar varchar(255) DEFAULT NULL,
   PRIMARY KEY (user_id)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
