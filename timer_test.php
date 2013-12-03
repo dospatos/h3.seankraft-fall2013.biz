@@ -32,16 +32,26 @@
 
     <h2>Javascript Timer</h2>
     <p>Behold the jQuery Timer plugin. Turns an HTML canvas into a handsome countdown clock!</p>
-    <section>
+    <section id="timerCreateSection">
+        <fieldset>
+            <legend>Create Your Own Timer</legend>
+            <p>Minutes Allowed: <input type="text" id="txtMinutesAllowed"/> | Use HTML5 Canvas: <input type="checkbox" id="chkUseCanvas"/> | Synch with Server: <input type="checkbox" id="chkSynchWithServer"/></p>
+            <p>Text Color: <input type="text" id="txtTextColor" value="black"/> | Background Color: <input type="text" id="txtBackgroundColor" value="red"/></p>
+
+            <input type="button" id="cmdCreateTimer" value="Create Timer"/>
+        </fieldset>
+
+    </section>
+    <section id="timerSection">
 
         <canvas id="TimerDisplay2" width="100" height="300"></canvas>
         <canvas id="TimerDisplay3" width="150" height="100"></canvas>
         <div id="TimerDisplay4" style="width:150px;height:200px;background-color:red;color: black;font-family: Arial;font-size: 20px;"/>
 
     </section>
+
     <hr>
     <form id="mainForm">
-        <input type="button" id="cmdTest" value="test"/>
         <input type="submit" value="Post the form >>"/>
     </form>
     <footer>
@@ -79,9 +89,35 @@
             event.preventDefault();
         });
 
-        $("#cmdTest").click(function () {
+        $("#cmdCreateTimer").click(function () {
             var json = $("#TimerDisplay3").timer('serialize');
             alert(json);
+
+            var container = $("#timerSection");
+
+            var newTimer
+            if ($('#chkUseCanvas').prop('checked')) {
+                newTimer = document.createElement("canvas")
+                newTimer.id = "newTimer";
+            } else {
+                var newTimer = $('<div/>', {
+                    id: 'newTimer',
+                    className: 'timer',
+                    style: 'border:1px solid black;width: 65px;height: 30px;color:'
+                        + $('#txtTextColor').val()
+                        + ';background-color:' + $('#txtBackgroundColor').val()
+                });
+
+            }
+
+            $("#timerSection").append(newTimer);
+            newTimer = $("#newTimer");//not sure why but jQuery needs us to retrieve the new div from jQuery for it to work
+            newTimer.timer({ added: function(e, ui){}
+               , minutesAllowed:$('#txtMinutesAllowed').val(), synchWithServer:$('#chkSynchWithServer').prop('checked')
+               ,backgroundColor: $('#txtBackgroundColor').val(), textColor: $('#txtTextColor').val()
+               ,timeup: function(e,ui){alert('timeup 5 serverTimerId:' + ui.serverTimerId);}});
+
+            //var y = $("").length();
         });
     });
 

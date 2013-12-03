@@ -41,4 +41,5 @@ hr.clear {visibility:hidden;clear:both;}
 #footer {width:680px; clear:both; margin:20px 0 20px 20px; color:#777; font-size:0.9em;}
 #footer p {margin:0; padding:0;}
 #footer a {color:#777;}
+#timer {color:black;background-color: red}
 

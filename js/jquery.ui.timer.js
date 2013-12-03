@@ -6,7 +6,7 @@
                 timeLeftColor: "#007F0E",
                 timeTakenColor: "#FF0000",
                 secondsEt: 0,
-                minutesAllowed: 30,
+                minutesAllowed: 1,
                 synchWithServer: true,
                 serverTimerId: null,
                 ajaxUrlRoot: "index/",
@@ -103,11 +103,9 @@
             },
             displayTimer: function(){//displays on a div or a panel
                 var ClockText = this.formatTimePart(this.options.hours) + ":" + this.formatTimePart(this.options.mins) + ":" + this.formatTimePart(this.options.secs);
-                if (this.isDiv()) {
-                    this.element.html(ClockText);
-                } else {
-                    var canvas=this.element[0];
-                    var ctx=canvas.getContext("2d");
+                if (!this.isDiv()) {
+                    var canvas = this.element[0];
+                    var ctx = canvas.getContext("2d");
                     var fontSize = canvas.height * .3;
 
                     //calculate the width of the font with respect to the width of the panel
@@ -116,7 +114,7 @@
                         ctx.font = fontSize + 'px Arial';
                         var TextWidth = ctx.measureText(ClockText);
                         fontSize--;
-                    } while ((TextWidth.width + (canvas.width *.2)) > canvas.width)//the width with a 10% margin on each side
+                    } while ((TextWidth.width + (canvas.width * .2)) > canvas.width)//the width with a 10% margin on each side
 
 
                     var fontY = canvas.height * .5;//half the height
@@ -124,17 +122,19 @@
                     var totalBarWidth = TextWidth.width;
                     var spacingWidth = canvas.height / 20;
 
-                    ctx.fillStyle=this.options.backgroundColor;//timer's background color
-                    ctx.fillRect(0,0, canvas.width, canvas.height);
+                    ctx.fillStyle = this.options.backgroundColor;//timer's background color
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                    ctx.fillStyle=this.options.textColor; //font color
+                    ctx.fillStyle = this.options.textColor; //font color
                     ctx.fillText(ClockText, xPos, fontY);
 
                     //Fill the status bar
-                    ctx.fillStyle=this.options.timeLeftColor; //time left bar color
+                    ctx.fillStyle = this.options.timeLeftColor; //time left bar color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth, spacingWidth * 4);
-                    ctx.fillStyle=this.options.timeTakenColor; //time taken color
+                    ctx.fillStyle = this.options.timeTakenColor; //time taken color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * this.options.percentComplete, spacingWidth * 4);
+                } else {
+                    this.element.html(ClockText);
                 }
             },
             serialize: function() {//get a jSon representation of the object to post back to the server

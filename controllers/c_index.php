@@ -13,13 +13,9 @@ class index_controller extends base_controller {
 	Accessed via http://localhost/index/index/
 	-------------------------------------------------------------------------------------------------*/
 	public function increment($counter_id = null) {
-		
 
         # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
-
-
-
 
         //if there is no counter ID we'll create a new one
         if ($counter_id == null) {
