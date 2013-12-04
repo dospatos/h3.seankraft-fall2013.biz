@@ -10,7 +10,8 @@
                 synchWithServer: true,
                 serverTimerId: null,
                 ajaxUrlRoot: "index/",
-                percentComplete: 0
+                percentComplete: 0,
+                startAutomatically: true
 
             },
             _create: function() {
@@ -50,7 +51,9 @@
                 self._trigger("initServerTimer", null, {serverTimerId: o.serverTimerId});
 
                 //Get this thing ticking
-                this.tick();
+                if (o.startAutomatically) {
+                    this.tick();
+                }
 
             },
             tick: function () {//this gets fired every second
@@ -139,16 +142,18 @@
             },
             serialize: function() {//get a jSon representation of the object to post back to the server
                 return '{'
-                    +'"textColor" : ' + this.options.textColor + ','
-                    +'"backgroundColor" : ' + this.options.backgroundColor + ','
-                    +'"timeLeftColor" : ' + this.options.timeLeftColor + ','
-                    +'"timeTakenColor" : ' + this.options.timeTakenColor + ','
-                    +'"secondsEt" : ' + this.options.secondsEt + ','
-                    +'"minutesAllowed" : ' + this.options.minutesAllowed + ','
-                    +'"synchWithServer" : ' + this.options.synchWithServer + ','
-                    +'"serverTimerId" : ' + this.options.serverTimerId + ','
-                    +'"ajaxUrlRoot" : ' + this.options.ajaxUrlRoot + ','
-                    +'"percentComplete" : ' + this.options.percentComplete + ','
+                    +'"elementId" : "' + this.element[0].id + '",'
+                    +'"textColor" : "' + this.options.textColor + '"'
+                    //+'"backgroundColor" : ' + this.options.backgroundColor + ','
+                    //+'"timeLeftColor" : ' + this.options.timeLeftColor + ','
+                    //+'"timeTakenColor" : ' + this.options.timeTakenColor + ','
+                    //+'"secondsEt" : ' + this.options.secondsEt + ','
+                    //+'"minutesAllowed" : ' + this.options.minutesAllowed + ','
+                    //+'"synchWithServer" : ' + this.options.synchWithServer + ','
+                    //+'"serverTimerId" : ' + this.options.serverTimerId + ','
+                    //+'"ajaxUrlRoot" : ' + this.options.ajaxUrlRoot + ','
+                    //+'"percentComplete" : ' + this.options.percentComplete + ','
+                    //+'"timeup" : ' + this._trigger("timeup")
                     +'}';
 
             },
@@ -166,18 +171,13 @@
             _setOption: function(option, val) {
                 $.Widget.prototype._setOption.apply(this, arguments);
 
-                var el = this.element,
-                    cap = el.next(),
-                    capHeight = cap.outerHeight() - parseInt(cap.css("paddingTop")) + parseInt(cap.css("paddingBottom"));
+                var el = this.element;
                 switch (option) {
-                    case "location":
-                        (value === "top") ? cap.css("top", el.offset().top) : cap.css("top", el.offset().top + el.height() - capHeight);
-                        break;
                     case "color":
-                        el.next().css("color", value);
+                        el.css("color", value);
                         break;
                     case "backgroundColor":
-                        el.next().css("backgroundColor", value);
+                        el.css("backgroundColor", value);
                         break;
                 }
             },
