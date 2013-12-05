@@ -2,16 +2,10 @@
 /*
  * Created by JetBrains PhpStorm.
  * User: skraft
- * Date: 9/6/13
+ * Date: 12/05/13
  * Time: 3:12 PM
  * Create by Sean Kraft for CSCI-E15 Fall 2013
  */
-if (isset($_POST["txtTimerState"])) {
-    echo($_POST["txtTimerState"]);
-    $timerState = $_POST["txtTimerState"];
-    $j = json_decode($timerState);
-    echo(var_dump($j));
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,24 +20,30 @@ if (isset($_POST["txtTimerState"])) {
 <script type="text/javascript" src="js/jquery.ui.timer.js"></script>
 <link href="css/jquery.miniColors.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.miniColors.js"></script>
-
-
 </head>
 
 <body>
 
 <article style="width:700px">
     <header>
-        <h2>Sean Kraft CSCI E-15</h2>
+        <h2>Sean Kraft CSCI E-15: Project #3</h2>
     </header>
 
 
-    <h2>Javascript Timer</h2>
-    <p>Behold the jQuery Timer plugin. Turns an HTML canvas into a handsome countdown clock!</p>
+    <h2>jQuery UI Timer plugin demo</h2>
+    <p>Turns an HTML canvas into a handsome countdown clock!
+    <ul>
+        <li>Uses jQuery UI widget factory, code in jquery.ui.timer.js</li>
+        <li>Supports HTML5 canvas for a fancy clock with progress bar, and div tags for a simple readout</li>
+        <li>Optionally ties back to server using Ajax, PHP, and mySQL</li>
+        <li>Raises timeup and initServerTimer events to allow client to react</li>
+        <li>Supports timer persistence across posts with serialize function (i.e. keeps on ticking). To test, create a timer and post the form.</li>
+    </ul>
+    </p>
     <section id="timerCreateSection">
         <fieldset>
             <legend>Create Your Own Timer</legend>
-            <p>Minutes Allowed: <input type="text" id="txtMinutesAllowed" value="1"/> | Use HTML5 Canvas: <input type="checkbox" id="chkUseCanvas"/> | Synch with Server: <input type="checkbox" id="chkSynchWithServer"/></p>
+            <p>Minutes Allowed: <input type="text" id="txtMinutesAllowed" value="1"/> | Use HTML5 Canvas: <input type="checkbox" id="chkUseCanvas" checked/> | Synch with Server: <input type="checkbox" id="chkSynchWithServer"/></p>
             <p>Text Color: <input class="color-picker" type="hidden" id="txtTextColor" value="#F0F72E"/> | Background Color: <input type="hidden" id="txtBackgroundColor" class="color-picker" value="#040008"/> | Time Taken Color: <input class="color-picker" type="hidden" id="txtTimeTakenColor" value="#FF0220"/> | Time Left Color: <input type="hidden" id="txtTimeLeftColor" class="color-picker" value="#3C9336"/></p>
 
             <input type="button" id="cmdCreateTimer" value="Create Timer"/>
@@ -51,12 +51,43 @@ if (isset($_POST["txtTimerState"])) {
 
     </section>
     <section id="timerSection">
+        <canvas id="canTimerDisplay" width="100" height="75"></canvas>
+        <div id="divTimerDisplay" class="timer" classname="timer"></div>
+        <?php
+        //Go through the posted timer states and set the timers back up again in the HTML
+        if (isset($_POST["txtTimerState"])) {
+            $timerState = $_POST["txtTimerState"];
+            //echo $timerState;
+            $j = json_decode($timerState, true);
+            //echo(var_dump($j));
 
-        <canvas id="canTimerDisplay" width="100" height="75" class="timer"></canvas>
-        <div id="divTimerDisplay" class="timer" style="width:100px;height:75px;background-color:red;color: black;font-family: Arial;font-size: 20px; text-align: center"/>
+            //each item is a timer waiting to be reborn!
+            foreach($j as $item) {
+                $elementId = $item['elementId'];
+                $elementType = $item['elementType'];
+                $textColor = $item['textColor'];
+                $backgroundColor = $item['backgroundColor'];
+                $timeLeftColor = $item['timeLeftColor'];
+                $timeTakenColor = $item['timeTakenColor'];
+                $secondsEt = $item['secondsEt'];
+                $minutesAllowed = $item['minutesAllowed'];
+                $synchWithServer = $item['synchWithServer'];
+                $serverTimerId = $item['serverTimerId'];
+                $ajaxUrlRoot = $item['ajaxUrlRoot'];
+                $percentComplete = $item['percentComplete'];
+                $timeup = $item['timeup'];
 
+                if ($elementId != 'canTimerDisplay' && $elementId != 'divTimerDisplay') {//these are hardcoded on the page
+                    if ($elementType == "CANVAS") {
+                        echo "<canvas id='".$elementId."' width='100' height='75' class='canvastimer'></canvas>";
+                    } else {
+                        echo "<div id='".$elementId."' class='timer' style='border:1px solid black;width: 65px;height: 30px;color:".$textColor.";background-color:".$backgroundColor."'></div>";
+                    }
+                }
+            }
+        }
+        ?>
     </section>
-
     <hr>
     <form id="mainForm" method="post">
         <input type="hidden" id="txtTimerState" name="txtTimerState"/>
@@ -64,15 +95,15 @@ if (isset($_POST["txtTimerState"])) {
     </form>
     <footer>
         <p>Posted by: Sean Kraft</p>
-        <p><time datetime="2013-09-15"></time></p>
+        <p><time datetime="2013-12-05"></time></p>
     </footer>
 
 </article>
 
 </body>
 <script language="javascript">
-
     $( document ).ready(function() {
+        //thanks to miniColors for the sweet color picker
         $(".color-picker").miniColors({
             letterCase: 'uppercase'
         });
@@ -97,13 +128,15 @@ if (isset($_POST["txtTimerState"])) {
             window.nativeAlert(json);
             //event.preventDefault();
 
-            var allTimers = $('.timer');
-            var allTimerSerialized ="";
-            for (x=1; x<allTimers.length; x++) {
+            var allTimers = $('.timer, .canvastimer');
+            var allTimerSerialized ="[";
+            for (x=0; x<allTimers.length; x++) {
                 currentTimer = $("#" + allTimers[x].id);
                 allTimerSerialized+=currentTimer.timer("serialize");
+                if (x +1 < allTimers.length) allTimerSerialized+= ",";//no trailing comma
                 alert(currentTimer.timer("serialize"));
             }
+            allTimerSerialized+= "]";
             $("#txtTimerState").val(allTimerSerialized);
         });
 
@@ -114,34 +147,76 @@ if (isset($_POST["txtTimerState"])) {
 
             //Create a new HTMLElement and append it to the timerSection
             var container = $("#timerSection"), newTimer;
-            var timerCount = $('.timer').length;
+            var timerCount = $('.timer, .canvastimer').length;
             timerCount++;
-            var newTimerId = 'newTimer_' + timerCount;
-            alert(timerCount);
+            var newTimerId = 'newTimer_' + timerCount;//create a unique ID
+
             if ($('#chkUseCanvas').prop('checked')) {
                 newTimer = document.createElement("canvas")
                 newTimer.id = newTimerId;
-                newTimer.className = "timer";
+                newTimer.className = "canvastimer";
             } else {
                 newTimer = $('<div/>', {
                     id: newTimerId,
                     class: 'timer',
-                    style: 'border:1px solid black;width: 65px;height: 30px;color:'
+                    style: 'color:'
                         + $('#txtTextColor').val()
                         + ';background-color:' + $('#txtBackgroundColor').val()
                 });
 
             }
 
+            var minutesAllowed = $('#txtMinutesAllowed').val();
+            if ($.isNumeric(minutesAllowed)) {
+                if (minutesAllowed.indexOf('.') == 0) {
+                    minutesAllowed = "0" + minutesAllowed;//json for serialize requires leading zeros
+                }
+            } else {
+                minutesAllowed = 1;
+            }
+            $('#txtMinutesAllowed').val(minutesAllowed);
+
             container.append(newTimer);//add the new timer to the proper section
-            newTimer = $("#" + newTimerId);//not sure why but jQuery needs us to retrieve the new div from jQuery for it to work
-            newTimer.timer({ added: function(e, ui){}
-               , minutesAllowed:$('#txtMinutesAllowed').val(), synchWithServer:$('#chkSynchWithServer').prop('checked')
+            //not sure why but jQuery needs us to retrieve the new div from jQuery for it to work
+            $("#" + newTimerId).timer({ added: function(e, ui){}
+               ,minutesAllowed:minutesAllowed, synchWithServer:$('#chkSynchWithServer').prop('checked')
                ,backgroundColor: $('#txtBackgroundColor').val(), textColor: $('#txtTextColor').val()
                ,timeTakenColor: $('#txtTimeTakenColor').val(), timeLeftColor: $('#txtTimeLeftColor').val()
                ,timeup: function(e,ui){alert('timeup ' + newTimerId + ' serverTimerId:' + ui.serverTimerId);}});
 
         });
+
+        <?php
+        //Go through the posted timer states and set the timers back up again, look up top for the matching HTML
+        if (isset($_POST["txtTimerState"])) {
+            $timerState = $_POST["txtTimerState"];
+            //echo $timerState;
+            $j = json_decode($timerState, true);
+
+            //each item is a timer waiting to be reborn
+            foreach($j as $item) {
+                $elementId = $item['elementId'];
+                $textColor = $item['textColor'];
+                $backgroundColor = $item['backgroundColor'];
+                $timeLeftColor = $item['timeLeftColor'];
+                $timeTakenColor = $item['timeTakenColor'];
+                $secondsEt = $item['secondsEt'];
+                $minutesAllowed = $item['minutesAllowed'];
+                $synchWithServer = $item['synchWithServer'] != "" ? $item['synchWithServer'] : 'false';
+                $serverTimerId = $item['serverTimerId'] !=null ? $item['serverTimerId'] : 'null';
+                $ajaxUrlRoot = $item['ajaxUrlRoot'];
+                $percentComplete = $item['percentComplete'];
+                $timeup = $item['timeup'];
+                if ($elementId != 'canTimerDisplay' && $elementId != 'divTimerDisplay') {//these are hardcoded on the page
+                    //write out the jQuery code to initiate the timers
+                    echo "$('#".$elementId."').timer({minutesAllowed:".$minutesAllowed.",secondsEt:".$secondsEt.",textColor:'".$textColor."',backgroundColor:'".$backgroundColor."',timeLeftColor:'".$timeLeftColor."',timeTakenColor:'".$timeTakenColor."',synchWithServer:".$synchWithServer.",serverTimerId:".$serverTimerId.",ajaxUrlRoot:'".$ajaxUrlRoot."',percentComplete:".$percentComplete."});\r\n";
+                }
+
+
+            }
+
+        }
+        ?>
     });
 
 </script>

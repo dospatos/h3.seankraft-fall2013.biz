@@ -6,15 +6,18 @@
                 timeLeftColor: "#007F0E",
                 timeTakenColor: "#FF0000",
                 secondsEt: 0,
-                minutesAllowed: 1,
+                minutesAllowed: 0,
                 synchWithServer: true,
                 serverTimerId: null,
                 ajaxUrlRoot: "index/",
                 percentComplete: 0,
-                startAutomatically: true
+                startAutomatically: true,
+                secs:0,
+                mins:0,
+                hours:0
 
             },
-            _create: function() {
+            _create: function() {//creates the timer and starts it ticking
                 var self = this,
                     o = self.options,
                     el = self.element,
@@ -26,10 +29,6 @@
                 window.alert = function(alertText) {
                     window.console.log(alertText);
                 }
-
-                $(window).resize(function(){
-                    console.log("resize");
-                        });
 
                 //setup the server timer if required
                 if (o.synchWithServer) {
@@ -52,20 +51,40 @@
 
                 //Get this thing ticking
                 if (o.startAutomatically) {
-                    this.tick();
+                    if (o.secondsEt>0) {
+                        this.tick();//we already have a timer going, don't delay the display
+                    } else {
+                        this.displayTimer();//this shows a timer with 00:00:00 for a second until the tick() kicks in
+                        setTimeout("$('#" + localId + "').timer('tick','')",1000);
+                    }
                 }
 
             },
             tick: function () {//this gets fired every second
                 var totalSecondsAllowed = this.options.minutesAllowed * 60;
 
+                //count off a second here and on the server if required
+                if (this.options.secondsEt < totalSecondsAllowed) {
+                    this.options.secondsEt++;
+                    if (this.options.synchWithServer) {
+                        $ajaxUrl = this.options.ajaxUrlRoot + "increment/" + this.options.serverTimerId
+                        $.ajax({
+                            type: "GET",
+                            url: $ajaxUrl,
+                            async: true,//note: we're using async and we don't care about the return (better for speed)
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+                }
                 //calculate all the times from the elapsed time
                 this.options.secs = this.options.secondsEt % 60;
                 this.options.mins = Math.floor(this.options.secondsEt/60);
                 this.options.hours = Math.floor(this.options.mins/60);
 
-                //window.console.log("hours" + this.options.hours + ", mins: " + this.options.mins + ", Secs:" + this.options.secs);
-
+                //figure out what % complete we are
+                this.options.percentComplete = this.options.secondsEt / totalSecondsAllowed;
+                //if we're done - we're done
                 if (this.options.percentComplete >= 1) {
                     this._trigger("timeup", null, {serverTimerId: this.options.serverTimerId});
                     if (this.options.synchWithServer) {
@@ -78,23 +97,8 @@
                             async: true
                         });
                     }
+                    this.displayTimer();
                 } else {
-                    //figure out what % complete we are
-                    this.options.percentComplete = this.options.secondsEt / totalSecondsAllowed;
-
-                    //count off a second here and on the server if required
-                    this.options.secondsEt++;
-                    if (this.options.synchWithServer) {
-                        $ajaxUrl = this.options.ajaxUrlRoot + "increment/" + this.options.serverTimerId
-                        $.ajax({
-                            type: "GET",
-                            url: $ajaxUrl,
-                            async: true,//note: we're using async and we don't care about the return (better for speed)
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
-
                     //present the timer to the user
                     this.displayTimer();
 
@@ -119,7 +123,7 @@
                         fontSize--;
                     } while ((TextWidth.width + (canvas.width * .2)) > canvas.width)//the width with a 10% margin on each side
 
-
+                    //size up the font and the bar for the canvas
                     var fontY = canvas.height * .5;//half the height
                     var xPos = canvas.width * .1;//start at %10 of the width
                     var totalBarWidth = TextWidth.width;
@@ -137,38 +141,41 @@
                     ctx.fillStyle = this.options.timeTakenColor; //time taken color
                     ctx.fillRect(xPos, fontY + spacingWidth, totalBarWidth * this.options.percentComplete, spacingWidth * 4);
                 } else {
+                    //The <div> timer is really simple
                     this.element.html(ClockText);
                 }
             },
             serialize: function() {//get a jSon representation of the object to post back to the server
+                $elementType = this.isDiv() ? "DIV" : "CANVAS";
+                $minutesAllowed =  this.options.minutesAllowed;
                 return '{'
                     +'"elementId" : "' + this.element[0].id + '",'
-                    +'"textColor" : "' + this.options.textColor + '"'
-                    //+'"backgroundColor" : ' + this.options.backgroundColor + ','
-                    //+'"timeLeftColor" : ' + this.options.timeLeftColor + ','
-                    //+'"timeTakenColor" : ' + this.options.timeTakenColor + ','
-                    //+'"secondsEt" : ' + this.options.secondsEt + ','
-                    //+'"minutesAllowed" : ' + this.options.minutesAllowed + ','
-                    //+'"synchWithServer" : ' + this.options.synchWithServer + ','
-                    //+'"serverTimerId" : ' + this.options.serverTimerId + ','
-                    //+'"ajaxUrlRoot" : ' + this.options.ajaxUrlRoot + ','
-                    //+'"percentComplete" : ' + this.options.percentComplete + ','
-                    //+'"timeup" : ' + this._trigger("timeup")
+                    +'"elementType" : "' + $elementType+ '",'
+                    +'"textColor" : "' + this.options.textColor + '",'
+                    +'"backgroundColor" : "' + this.options.backgroundColor + '",'
+                    +'"timeLeftColor" : "' + this.options.timeLeftColor + '",'
+                    +'"timeTakenColor" : "' + this.options.timeTakenColor + '",'
+                    +'"secondsEt" : ' + this.options.secondsEt + ','
+                    +'"minutesAllowed" : ' + $minutesAllowed+ ','
+                    +'"synchWithServer" : ' + this.options.synchWithServer + ','
+                    +'"serverTimerId" : ' + this.options.serverTimerId + ','
+                    +'"ajaxUrlRoot" : "' + this.options.ajaxUrlRoot + '",'
+                    +'"percentComplete" : ' + this.options.percentComplete + ','
+                    +'"timeup" : "' + this._trigger("timeup") + '"'
                     +'}';
 
             },
             isCanvasSupported: function(){//returns true if the browser supports an HTML5 canvas
                 return !!window.CanvasRenderingContext2D;
             },
-            isDiv: function(){return this.element.is("div");},
-            formatTimePart: function(timePart) {
+            isDiv: function(){return this.element.is("div");},//returns true if it's a div
+            formatTimePart: function(timePart) {//add leading zero to single digit time parts
                     return timePart > 9 ? "" + timePart: "0" + timePart;
             },
-            destroy: function() {
-                this.element.next().remove();
-                $(window).unbind("resize");
+            destroy: function() {//take the timer out of the DOM
+                this.element.remove();
             },
-            _setOption: function(option, val) {
+            _setOption: function(option, value) {//set a single option
                 $.Widget.prototype._setOption.apply(this, arguments);
 
                 var el = this.element;
@@ -181,7 +188,7 @@
                         break;
                 }
             },
-            _setOptions: function( options ) {
+            _setOptions: function( options ) {//set an array of options
                 var that = this,
                     resize = false;
 

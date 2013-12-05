@@ -10,7 +10,8 @@ class index_controller extends base_controller {
 	} 
 		
 	/*-------------------------------------------------------------------------------------------------
-	Accessed via http://localhost/index/index/
+	Accessed via http://localhost/increment/<timerid>
+	Creates and increments a counter based on ID
 	-------------------------------------------------------------------------------------------------*/
 	public function increment($counter_id = null) {
 
@@ -26,24 +27,26 @@ class index_controller extends base_controller {
             $_POST['last_updated'] = Time::now();
 
             $counter_id = DB::instance(DB_NAME)->insert('timers', $_POST);
-        } else {
+        } else {//otherwise increment the counter by one
 
+            //We only recognize counter increments from the IP that started them
             $q = "SELECT elapsed_seconds FROM timers WHERE timer_id = ".$counter_id." AND client_ip='".$client_ip."'";
             $existing_elapsed_seconds = DB::instance(DB_NAME)->select_field($q);
 
-            $new_elapsed_seconds = $existing_elapsed_seconds + 1;
+            if(isset($existing_elapsed_seconds)) {
+                $new_elapsed_seconds = $existing_elapsed_seconds + 1;
 
-            $_POST['elapsed_seconds'] = $new_elapsed_seconds;
-            $_POST['last_updated'] = Time::now();
+                $_POST['elapsed_seconds'] = $new_elapsed_seconds;
+                $_POST['last_updated'] = Time::now();
 
-            $returned_id = DB::instance(DB_NAME)->update('timers', $_POST, "WHERE timer_id = ".$counter_id." AND stop IS NULL");
+                $returned_id = DB::instance(DB_NAME)->update('timers', $_POST, "WHERE timer_id = ".$counter_id." AND client_ip='".$client_ip."' AND stop IS NULL");
+            }
         }
 
-        //otherwise increment the counter by one
-
+        //send back the ID
         echo json_encode(array($counter_id));
 
-	} # End of method
+	} # End of increment method
 
     public function stop($counter_id) {
         # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
@@ -52,10 +55,11 @@ class index_controller extends base_controller {
         //stop the counter
         $_POST['stop'] = Time::now();
         $_POST['last_updated'] = Time::now();
-        $counter_id = DB::instance(DB_NAME)->update('timers', $_POST, "WHERE timer_id = ".$counter_id." AND stop IS NULL");
+        $client_ip = $_SERVER['REMOTE_ADDR'];//we only let the originating IP stop the timer
+        $counter_id = DB::instance(DB_NAME)->update('timers', $_POST, "WHERE timer_id = ".$counter_id." AND client_ip='".$client_ip."' AND stop IS NULL");
 
         echo json_encode(array($counter_id));
 
-    } # End of method
+    } # End of stop method
 	
 } # End of class
