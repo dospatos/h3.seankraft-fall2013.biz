@@ -38,6 +38,7 @@
         <li>Optionally ties back to server using Ajax, PHP, and mySQL</li>
         <li>Raises timeup and initServerTimer events to allow client to react</li>
         <li>Supports timer persistence across posts with serialize function (i.e. keeps on ticking). To test, create a timer and post the form.</li>
+        <li>Plan is to use this timer on my project #4 which is an online testing site</li>
     </ul>
     </p>
     <section id="timerCreateSection">
